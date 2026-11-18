@@ -1,0 +1,440 @@
+
+
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Чистые активы — финансовый гид</title>
+
+  <style>
+    :root {
+      --bg: #0b1120;
+      --surface: #131d31;
+      --text: #edf2ff;
+      --muted: #afbdd4;
+      --accent: #70e0cf;
+      --blue: #88aaff;
+      --border: rgba(174, 195, 230, .16);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 10% 0%, #25365d88, transparent 45%),
+        radial-gradient(ellipse at 100% 35%, #126b6540, transparent 40%),
+        var(--bg);
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(1100px, 100% - 40px);
+      margin: auto;
+      padding: 72px 0 40px;
+    }
+
+    .eyebrow, .section-label {
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: #ffffff05;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px #70e0cf80;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin: 24px 0;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      letter-spacing: -.055em;
+    }
+
+    /* Прозрачный текст, через который виден градиент */
+    .gradient-text {
+      color: var(--blue);
+    }
+
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+      .gradient-text {
+        background: linear-gradient(110deg, #f0f5ff, #88aaff 48%, #70e0cf);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+
+    .lead {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .lead strong { color: var(--text); }
+
+    section { margin-top: 56px; }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      line-height: 1.25;
+      letter-spacing: -.03em;
+    }
+
+    .section-intro {
+      max-width: 670px;
+      margin-bottom: 24px;
+      color: var(--muted);
+    }
+
+    .formula {
+      margin-top: 32px;
+      padding: 28px;
+      border: 1px solid #70e0cf40;
+      border-radius: var(--radius);
+      background: linear-gradient(120deg, #70e0cf12, #88aaff0a);
+    }
+
+    .formula p { margin-bottom: 8px; }
+
+    .formula-value {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 700;
+    }
+
+    .formula-value .operator { color: var(--accent); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 26px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(145deg, #ffffff07, #ffffff02);
+      transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+    }
+
+    @media (hover: hover) {
+      .card:hover {
+        transform: translateY(-7px);
+        border-color: #70e0cf70;
+        box-shadow: 0 18px 40px #00000030;
+      }
+    }
+
+    .card-number {
+      display: inline-grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      background: #88aaff15;
+      color: var(--blue);
+      font-weight: 700;
+      font-size: .85rem;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 1.15rem;
+      line-height: 1.4;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .cases {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .case {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .case.warning { border-top-color: #f1be78; }
+
+    .case-label {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .warning .case-label { color: #f1be78; }
+
+    .metrics { margin: 22px 0; }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .metric dt { color: var(--muted); }
+    .metric dd { margin: 0; font-weight: 700; }
+    .metric.total dd { color: var(--accent); }
+    .warning .metric.total dd { color: #f1be78; }
+
+    .case > p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tags li {
+      padding: 9px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      background: #88aaff0a;
+      color: #d2def6;
+      font-size: .9rem;
+    }
+
+    .note {
+      margin-top: 40px;
+      padding: 24px;
+      border-left: 3px solid var(--blue);
+      border-radius: 0 16px 16px 0;
+      background: #88aaff0a;
+    }
+
+    .note p { margin-bottom: 0; color: var(--muted); }
+    .note strong { color: var(--text); }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    @media (max-width: 760px) {
+      main { padding-top: 40px; }
+      .cards, .cases { grid-template-columns: 1fr; }
+      section { margin-top: 40px; }
+    }
+
+    @media (max-width: 400px) {
+      main { width: calc(100% - 28px); }
+      .card, .case, .formula { padding: 20px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card { transition: none; }
+      .card:hover { transform: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <span class="eyebrow">Взгляд финансового директора</span>
+      <h1 class="gradient-text">Чистые активы</h1>
+      <p class="lead">
+        Показатель, который помогает понять,
+        <strong>какая часть активов компании профинансирована
+        собственными средствами.</strong>
+        Рассчитывается как разница между активами и обязательствами.
+      </p>
+    </header>
+
+    <div class="formula" aria-label="Формула расчёта чистых активов">
+      <p class="section-label">Базовая формула</p>
+      <div class="formula-value">
+        <span>Чистые активы</span>
+        <span class="operator">=</span>
+        <span>Активы</span>
+        <span class="operator">−</span>
+        <span>Обязательства</span>
+      </div>
+    </div>
+
+    <section aria-labelledby="skills-title">
+      <p class="section-label">Навыки финансового анализа</p>
+      <h2 id="skills-title">Как читать показатель</h2>
+      <p class="section-intro">
+        Оценивайте размер чистых активов, их динамику
+        и причины изменений.
+      </p>
+
+      <div class="cards">
+        <article class="card">
+          <span class="card-number" aria-hidden="true">01</span>
+          <h3>Оценка устойчивости</h3>
+          <p>
+            Положительные чистые активы означают, что балансовая
+            стоимость активов превышает обязательства.
+            Отрицательное значение сигнализирует о финансовых проблемах.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="card-number" aria-hidden="true">02</span>
+          <h3>Анализ динамики</h3>
+          <p>
+            Рост показателя может быть связан с прибылью,
+            взносами собственников или переоценкой имущества.
+            Для выводов важно определить источник роста.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="card-number" aria-hidden="true">03</span>
+          <h3>Контроль капитала</h3>
+          <p>
+            Для российских ООО и АО важно сравнивать чистые
+            активы с уставным капиталом и учитывать
+            применимые законодательные требования.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="cases-title">
+      <p class="section-label">Практика</p>
+      <h2 id="cases-title">Два примера расчёта</h2>
+      <p class="section-intro">
+        Упрощённые примеры без специальных бухгалтерских корректировок.
+      </p>
+
+      <div class="cases">
+        <article class="case">
+          <span class="case-label">Кейс 01 · Положительное значение</span>
+          <h3>Активы превышают долги</h3>
+          <dl class="metrics">
+            <div class="metric">
+              <dt>Активы</dt><dd>20 млн ₽</dd>
+            </div>
+            <div class="metric">
+              <dt>Обязательства</dt><dd>12 млн ₽</dd>
+            </div>
+            <div class="metric total">
+              <dt>Чистые активы</dt><dd>8 млн ₽</dd>
+            </div>
+          </dl>
+          <p>
+            Компания располагает положительным собственным капиталом.
+            Для оценки платёжеспособности дополнительно
+            анализируют ликвидность и денежные потоки.
+          </p>
+        </article>
+
+        <article class="case warning">
+          <span class="case-label">Кейс 02 · Отрицательное значение</span>
+          <h3>Долги превышают активы</h3>
+          <dl class="metrics">
+            <div class="metric">
+              <dt>Активы</dt><dd>10 млн ₽</dd>
+            </div>
+            <div class="metric">
+              <dt>Обязательства</dt><dd>14 млн ₽</dd>
+            </div>
+            <div class="metric total">
+              <dt>Чистые активы</dt><dd>−4 млн ₽</dd>
+            </div>
+          </dl>
+          <p>
+            Накопленный дефицит капитала требует анализа причин
+            и подготовки мер по восстановлению финансовой устойчивости.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="tools-title">
+      <p class="section-label">Инструментарий</p>
+      <h2 id="tools-title">Что использовать для анализа</h2>
+      <ul class="tags" aria-label="Инструменты и источники данных">
+        <li>Бухгалтерский баланс</li>
+        <li>Отчёт о финансовых результатах</li>
+        <li>Отчёт о движении денежных средств</li>
+        <li>Excel</li>
+        <li>1С</li>
+        <li>План-факт анализ</li>
+        <li>Финансовая модель</li>
+      </ul>
+    </section>
+
+    <aside class="note" aria-label="Важное пояснение">
+      <p>
+        <strong>Чистые активы не равны остатку денег или рыночной
+        стоимости бизнеса.</strong>
+        Они могут быть представлены недвижимостью, оборудованием
+        и запасами, поэтому даже при положительном значении
+        компания может испытывать нехватку денег.
+      </p>
+    </aside>
+
+    <footer>
+      В российской отчётности величина чистых активов обычно близка
+      к собственному капиталу. Точный расчёт выполняют с учётом
+      предусмотренных нормативными правилами корректировок.
+    </footer>
+  </main>
+</body>
+</html>
+```
